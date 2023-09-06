@@ -23,15 +23,15 @@ export default function RootLayout({
         <ClientOnly>
           <Header />
           <ToasterProvider />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            enableColorScheme
+          >
+            {children}
+          </ThemeProvider>
         </ClientOnly>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          enableColorScheme
-        >
-          {children}
-        </ThemeProvider>
       </body>
     </html>
   );
