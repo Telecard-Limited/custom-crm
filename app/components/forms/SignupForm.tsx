@@ -47,8 +47,12 @@ const CompanyformSchema = z.object({
   companyemail: z.string().email(),
   description: z.string(),
 });
-const renderCompanyform = () => {
-  const form = useForm<z.infer<typeof CompanyformSchema>>({
+
+const SignupForm = () => {
+  const [selected, setSelected] = useState("");
+  const [companyForm, setCompany] = useState(false);
+  const [individualForm, setIndividualForm] = useState(false);
+  const companyform = useForm<z.infer<typeof CompanyformSchema>>({
     resolver: zodResolver(CompanyformSchema),
     defaultValues: {
       companyname: "",
@@ -56,11 +60,7 @@ const renderCompanyform = () => {
       description: "",
     },
   });
-  return <div className="bg-gradient-to-t from-green-400 to-white "></div>;
-};
-const SignupForm = () => {
-  const [companyForm, setCompany] = useState(false);
-  const form = useForm<z.infer<typeof IndividualformSchema>>({
+  const userform = useForm<z.infer<typeof IndividualformSchema>>({
     resolver: zodResolver(IndividualformSchema),
     defaultValues: {
       name: "",
@@ -83,13 +83,13 @@ const SignupForm = () => {
           Welcome! Create Your Account to access your dashboard
         </h1>
       </div>
-      <div className="p-10 bg-white rounded-sm drop-shadow-lg">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="w-full ">
+      <div className="container p-10 bg-white rounded-lg drop-shadow-lg">
+        <Form {...userform}>
+          <form onSubmit={userform.handleSubmit(onSubmit)} className="w-full ">
             <div className="items-start justify-center ml-4 text-start">
               <FormLabel className="text-primary "> Name</FormLabel>
               <FormField
-                control={form.control}
+                control={userform.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
@@ -102,7 +102,7 @@ const SignupForm = () => {
               />
               <FormLabel className="text-primary "> Email</FormLabel>
               <FormField
-                control={form.control}
+                control={userform.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
@@ -115,7 +115,7 @@ const SignupForm = () => {
               />
               <FormLabel className="text-primary "> Country</FormLabel>
               <FormField
-                control={form.control}
+                control={userform.control}
                 name="country"
                 render={({ field }) => (
                   <FormItem>
@@ -128,7 +128,7 @@ const SignupForm = () => {
               />
               <FormLabel className="text-primary ">Password</FormLabel>
               <FormField
-                control={form.control}
+                control={userform.control}
                 name="password"
                 render={({ field }) => (
                   <FormItem>
@@ -145,7 +145,7 @@ const SignupForm = () => {
               />
               <FormLabel className="text-primary ">Confirm Password</FormLabel>
               <FormField
-                control={form.control}
+                control={userform.control}
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
@@ -162,7 +162,7 @@ const SignupForm = () => {
               />
               <FormLabel className="text-primary "> Phone</FormLabel>
               <FormField
-                control={form.control}
+                control={userform.control}
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
@@ -178,18 +178,34 @@ const SignupForm = () => {
                 )}
               />
               <div className="flex flex-row items-center mt-4 space-x-4 gap-x-4">
-                <Checkbox id="terms" disabled />
+                <Checkbox
+                  id="terms"
+                  checked={individualForm}
+                  onChange={(e: any) => {
+                    setIndividualForm(e.target.checked);
+                    setCompany(!e.target.checked);
+                  }}
+                  className="cursor-pointer"
+                />
                 <label
                   htmlFor="terms"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm font-medium leading-none "
                 >
                   Individual
                 </label>
-                <Checkbox id="terms" disabled />
+                <Checkbox
+                  id="terms"
+                  checked={individualForm}
+                  onChange={(e: any) => {
+                    setIndividualForm(!e.target.checked);
+                    setCompany(e.target.checked);
+                  }}
+                  className="cursor-pointer"
+                />
 
                 <label
                   htmlFor="Company"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm font-medium leading-none "
                 >
                   Company
                 </label>
