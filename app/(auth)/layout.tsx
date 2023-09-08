@@ -17,7 +17,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-gradient-to-t from-green-400 to-white ">
       <body className={font.className}>
         <ClientOnly>
           <ToasterProvider />

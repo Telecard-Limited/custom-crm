@@ -6,6 +6,8 @@ import { User } from "@prisma/client";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
+// JWT CONFIG
+
 export interface Token {
   id_token: string;
 }

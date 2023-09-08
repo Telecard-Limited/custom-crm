@@ -1,6 +1,8 @@
-import SignupForm from "@/app/components/forms/SignupForm";
+import SignupForm from "@/components/forms/SignupForm";
 
-const RegistrationForm = () => {
+import { NextPage } from "next";
+
+const RegistrationForm: NextPage = () => {
   return <SignupForm />;
 };
 

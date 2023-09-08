@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { ChevronDown } from "lucide-react";
+
 import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
 
 export function MainNav({
   className,
@@ -15,25 +16,30 @@ export function MainNav({
   const routes = [
     {
       href: `/`,
-      label: "AboutUs",
+      label: "About Us",
       active: pathname === `/`,
     },
     {
       href: `/overview`,
-      label: "Overview",
+      label: "OverView",
       active: pathname === `/overview`,
     },
     {
-      href: `/feature`,
+      href: `/${params.featureId}/features`,
       label: "Features",
-      active: pathname === `/${params.featureId}/features`,
+      active: pathname === `/${params.featureId}/feature`,
       icon: <ChevronDown size={20} />,
     },
     {
-      href: `/solutions`,
-      label: "Solutions",
-      active: pathname === `/${params.solutions}/solutions`,
+      href: `/${params.solutionid}/solutions`,
+      label: "Sizes",
+      active: pathname === `/${params.solutionid}/solutions`,
       icon: <ChevronDown size={20} />,
+    },
+    {
+      href: `/prices`,
+      label: "Prices",
+      active: pathname === `/prices`,
     },
     {
       href: `/registration`,
@@ -41,9 +47,9 @@ export function MainNav({
       active: pathname === `/registration`,
     },
     {
-      href: `/sales`,
-      label: "Contact-Sales-Support",
-      active: pathname === `/support`,
+      href: `/signin`,
+      label: "Login",
+      active: pathname === `/signin`,
     },
   ];
 
@@ -57,7 +63,7 @@ export function MainNav({
           key={route.href}
           href={route.href}
           className={cn(
-            "text-sm font-medium transition-colors hover:text-primary flex flex-row",
+            "text-sm font-medium transition-colors hover:text-primary flex-row flex",
             route.active
               ? "text-primary dark:text-white"
               : "text-muted-foreground"
