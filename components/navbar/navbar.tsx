@@ -4,8 +4,9 @@ import Container from "../container/container";
 import Logo from "./logo";
 import Search from "./search";
 import UserMenu from "./userMenu";
+import { SafeUser } from "@/app/types";
 interface NavbarProps {
-  currentUser?: User | null;
+  currentUser?: SafeUser | undefined;
 }
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   return (
@@ -15,6 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
             <Logo />
             <Search />
+            {/* @ts-ignore */}
             <UserMenu currentUser={currentUser} />
           </div>
         </Container>
