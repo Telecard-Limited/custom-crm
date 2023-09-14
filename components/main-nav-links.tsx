@@ -19,13 +19,9 @@ export function MainNav({
       label: "About Us",
       active: pathname === `/`,
     },
+
     {
-      href: `/overview`,
-      label: "OverView",
-      active: pathname === `/overview`,
-    },
-    {
-      href: `/${params.featureId}/features`,
+      href: `/features`,
       label: "Features",
       active: pathname === `/${params.featureId}/feature`,
       icon: <ChevronDown size={20} />,
@@ -38,7 +34,7 @@ export function MainNav({
     },
     {
       href: `/prices`,
-      label: "Prices",
+      label: "Pricings",
       active: pathname === `/prices`,
     },
     {

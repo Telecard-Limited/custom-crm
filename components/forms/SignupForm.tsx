@@ -8,7 +8,6 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/ui/form";
-import { Checkbox } from "@/components/ui/checkbox";
 import { User, Company } from "@prisma/client";
 import * as z from "zod";
 import axios from "axios";
@@ -17,9 +16,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu } from "@/components/ui/dropdown-menu";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "next/navigation";
-import EmailVerificationModal from "@/app/components/modals/email-verificationModal";
+
 const IndividualformSchema = z
   .object({
     name: z
@@ -191,39 +190,6 @@ const SignupForm = () => {
                     </FormItem>
                   )}
                 />
-                <div className="flex flex-row items-center mt-4 space-x-4 gap-x-4">
-                  <Checkbox
-                    id="terms"
-                    checked={individualForm}
-                    onChange={(e: any) => {
-                      setIndividualForm(e.target.checked);
-                      setCompany(!e.target.checked);
-                    }}
-                    className="cursor-pointer"
-                  />
-                  <label
-                    htmlFor="terms"
-                    className="text-sm font-medium leading-none "
-                  >
-                    Individual
-                  </label>
-                  <Checkbox
-                    id="terms"
-                    checked={individualForm}
-                    onChange={(e: any) => {
-                      setIndividualForm(!e.target.checked);
-                      setCompany(e.target.checked);
-                    }}
-                    className="cursor-pointer"
-                  />
-
-                  <label
-                    htmlFor="Company"
-                    className="text-sm font-medium leading-none "
-                  >
-                    Company
-                  </label>
-                </div>
               </div>
 
               <Button type="submit" size={"lg"} className="w-full mt-4">

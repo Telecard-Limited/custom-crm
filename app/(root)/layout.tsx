@@ -4,7 +4,7 @@ import { Outfit } from "next/font/google";
 import { ThemeProvider } from "@/providers/theme-provider";
 import ClientOnly from "@/components/ClientOnly";
 import ToasterProvider from "@/providers/toast-provider";
-import Header from "@/components/Header";
+import Header from "@/components/header";
 const font = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,15 +23,15 @@ export default function RootLayout({
         <ClientOnly>
           <Header />
           <ToasterProvider />
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            enableColorScheme
-          >
-            {children}
-          </ThemeProvider>
         </ClientOnly>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          enableColorScheme
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
