@@ -25,11 +25,7 @@ const LoginformSchema = z.object({
     .min(4, { message: "password is required" })
     .max(8, { message: "password must be between 4-8 characters" }),
 });
-function onSubmit(values: z.infer<typeof LoginformSchema>) {
-  // Do something with the form values.
-  // ✅ This will be type-safe and validated.
-  console.log(values);
-}
+
 const SignInForm = () => {
   const useLoginForm = useForm<z.infer<typeof LoginformSchema>>({
     resolver: zodResolver(LoginformSchema),
@@ -39,6 +35,13 @@ const SignInForm = () => {
     },
   });
   const router = useRouter();
+  function onSubmit(values: z.infer<typeof LoginformSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
+
+    router?.push("/dashboard");
+  }
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="container   bg-white rounded-[20px] p-7 drop-shadow-lg w-[30vw]">
@@ -91,6 +94,7 @@ const SignInForm = () => {
             </div>
             <Button
               type="submit"
+              onClick={() => router.push("/dashboard")}
               size={"lg"}
               className="w-full mt-4 font-semibold text-white bg-blue-500 rounded-[20px] hover:bg-blue-500 hover:text-white "
             >
@@ -102,7 +106,7 @@ const SignInForm = () => {
                 size={"sm"}
                 variant={"link"}
                 onClick={() => {
-                  router.push("/registration");
+                  router.push("/registeration");
                 }}
                 className="text-blue-500"
               >

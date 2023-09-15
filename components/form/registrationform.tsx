@@ -89,16 +89,20 @@ const SignupForm = () => {
   return (
     <>
       <div className="align-middle bg-blue-950 drop-shadow-sm">
-        <MenuItem label="Login" onClick={() => router?.push("/signing")} />
+        <MenuItem label="Login" onClick={() => router?.push("/signin")} />
       </div>
-      <h1 className="p-4 text-lg font-semibold text-center text-blue-950">
-        {" "}
-        Register on Beautix CMS{" "}
-      </h1>
-      <div className="flex items-center justify-center h-screen">
-        <div className="container mt-10 align-middle bg-white rounded-[20px] px-7  drop-shadow-2xl">
+      <div className="flex items-center justify-center ">
+        <div className="container w-5/12 mt-10 align-middle bg-[#FAFAFA]  rounded-[20px] px-7  drop-shadow-md">
+          <h1 className="p-4 text-lg font-semibold text-center text-blue-950 ">
+            {" "}
+            Register on Beautix CMS{" "}
+          </h1>
+
           <Form {...userform} {...CompanyformSchema}>
-            <form onSubmit={userform.handleSubmit(onSubmit)} className="mb-6">
+            <form
+              onSubmit={userform.handleSubmit(onSubmit)}
+              className="px-4 py-4 mb-6 w-13 /12"
+            >
               <div className="items-start justify-center ml-4 text-start">
                 <FormLabel className="text-primary "> Name</FormLabel>
                 <FormField
@@ -107,7 +111,11 @@ const SignupForm = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="name" {...field} />
+                        <Input
+                          placeholder="name"
+                          {...field}
+                          className=" bg-[#FAFAFA] border-b[1px]"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -120,7 +128,11 @@ const SignupForm = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="email" {...field} />
+                        <Input
+                          placeholder="email"
+                          {...field}
+                          className=" bg-[#FAFAFA] border-b[1px]"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -133,7 +145,11 @@ const SignupForm = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="Select your country" {...field} />
+                        <Input
+                          placeholder="Select your country"
+                          {...field}
+                          className=" bg-[#FAFAFA] border-b[1px]"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -150,6 +166,7 @@ const SignupForm = () => {
                           placeholder="password"
                           {...field}
                           type="password"
+                          className=" bg-[#FAFAFA] border-b[1px]"
                         />
                       </FormControl>
                       <FormMessage />
@@ -169,6 +186,7 @@ const SignupForm = () => {
                           placeholder="confirm password"
                           {...field}
                           type=" password"
+                          className=" bg-[#FAFAFA] border-b[1px]"
                         />
                       </FormControl>
                       <FormMessage />
@@ -186,6 +204,7 @@ const SignupForm = () => {
                           placeholder="phone number"
                           {...field}
                           type="number"
+                          className=" bg-[#FAFAFA] border-b[1px]"
                         />
                       </FormControl>
                       <FormMessage />
