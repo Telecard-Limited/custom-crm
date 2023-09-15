@@ -36,6 +36,7 @@ model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
   email         String?   @unique
+  password      String  
   emailVerified DateTime?
   image         String?
   role          UserRoles @default(ADMIN)
@@ -46,6 +47,7 @@ model User {
   sessions      Session[]
   workspaces     WorkSpace[] 
   company      Company[]
+  department   Departments[]
 }
 model VerificationToken {
   identifier String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -73,6 +75,20 @@ model Company{
     user User @relation(fields: [companyEmail], references: [email], onDelete: Cascade)     
    
 }
+model Departments{
+id 			    String 		@id @default(auto()) @map("_id") @db.ObjectId
+userId      String  @db.ObjectId
+name        String
+designation String
+
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+
+
 enum UserRoles{
     ADMIN
     SUPERADMIN
