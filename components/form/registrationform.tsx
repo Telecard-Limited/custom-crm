@@ -1,244 +1,190 @@
 "use client";
-import {
-  Form,
-  FormField,
-  FormControl,
-  FormItem,
-  FormLabel,
-  FormDescription,
-  FormMessage,
-} from "@/components/ui/form";
-import { User, Company } from "@prisma/client";
-import * as z from "zod";
-import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
-import { useRouter } from "next/navigation";
+import axios, { AxiosError } from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useFormik } from "formik";
+import joinusValidation from "../validationSchema/joinusShcema";
+// import { styled } from "@mui/material";
+import { GlobalStyles } from "@mui/material";
+import { Container } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import MenuItem from "../MenuItems";
+import { useRouter } from "next/navigation";
+export default function JoinUs() {
+  const [Loading, setLoading] = useState(false);
+  const formik = useFormik({
+    initialValues: joinusValidation.initialValues,
+    validationSchema: joinusValidation.joinusSchema,
+    onSubmit: async (data) => {
+      console.log("dataa", data);
+      const { email, name, password, phoneNumber, country } = data;
 
-const IndividualformSchema = z
-  .object({
-    name: z
-      .string()
-      .min(3, { message: "name is required" })
-      .max(35, { message: "name must be between 3-35 characters" }),
-    email: z.string().email(),
-    phone: z.string().transform((data) => Number(data)),
-    password: z
-      .string()
-      .min(4, { message: "password is required" })
-      .max(8, { message: "password must be between 4-8 characters" }),
-    confirmPassword: z
-      .string()
-      .min(4, { message: "password is required" })
-      .max(8, { message: "password must be between 4-8 characters" }),
-    country: z.string(),
-    filename: z.string(),
-  })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword !== password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "The passwords did not match",
-      });
-    }
+      axios
+        .post("/api/register", data)
+        .then(() => {
+          toast.success("Onboarding User" + "User Registered Successfull");
+          setLoading(true);
+
+          router.push("/EmailVerification");
+        })
+        .catch((e: any) => {
+          toast.error(e);
+        })
+        .finally(() => {
+          setLoading(false);
+          if (AxiosError) {
+            // router.refresh();
+            router.push("/registeration");
+          } else {
+            router.push("/EmailVerification");
+          }
+        });
+    },
   });
-const CompanyformSchema = z.object({
-  companyname: z
-    .string()
-    .min(3, { message: "company name is required" })
-    .max(35, { message: "company name must be between 3-35 characters" }),
-  companyemail: z.string().email(),
-  description: z.string(),
-});
-
-const SignupForm = () => {
   const router = useRouter();
-  const [selected, setSelected] = useState("");
-  const [companyForm, setCompany] = useState(false);
-  const [individualForm, setIndividualForm] = useState(false);
-  const [emailVerificationModal, setEmailVerificationModal] = useState(false);
-  const companyform = useForm<z.infer<typeof CompanyformSchema>>({
-    resolver: zodResolver(CompanyformSchema),
-    defaultValues: {
-      companyname: "",
-      companyemail: "",
-      description: "",
-    },
-  });
-  const userform = useForm<z.infer<typeof IndividualformSchema>>({
-    resolver: zodResolver(IndividualformSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      country: "",
-    },
-  });
-  function onSubmit(values: z.infer<typeof IndividualformSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
-
   return (
     <>
-      <div className="align-middle bg-blue-950 drop-shadow-sm">
+      <GlobalStyles
+        styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
+      />
+      <div className="align-middle cursor-pointer bg-blue-950 drop-shadow-sm">
         <MenuItem label="Login" onClick={() => router?.push("/signin")} />
       </div>
-      <div className="flex items-center justify-center ">
-        <div className="container w-5/12 mt-10 align-middle bg-[#FAFAFA]  rounded-[20px] px-7  drop-shadow-md">
-          <h1 className="p-4 text-lg font-semibold text-center text-blue-950 ">
-            {" "}
-            Register on Beautix CMS{" "}
-          </h1>
-
-          <Form {...userform} {...CompanyformSchema}>
-            <form
-              onSubmit={userform.handleSubmit(onSubmit)}
-              className="px-4 py-4 mb-6 w-13 /12"
+      <Container maxWidth="md" component="main" sx={{}}>
+        <Grid container spacing={2} sx={{ pl: 10, pr: 10 }}>
+          <Grid item xs={12}>
+            <Box
+              component="form"
+              onSubmit={formik.handleSubmit}
+              sx={{
+                display: "flex",
+                mt: 10,
+                backgroundColor: "#FFFFFF", // White background
+                boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.2)", // Drop shadow
+                borderRadius: "10px",
+              }}
             >
-              <div className="items-start justify-center ml-4 text-start">
-                <FormLabel className="text-primary "> Name</FormLabel>
-                <FormField
-                  control={userform.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="name"
-                          {...field}
-                          className=" bg-[#FAFAFA] border-b[1px]"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormLabel className="text-primary "> Email</FormLabel>
-                <FormField
-                  control={userform.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="email"
-                          {...field}
-                          className=" bg-[#FAFAFA] border-b[1px]"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormLabel className="text-primary "> Country</FormLabel>
-                <FormField
-                  control={userform.control}
-                  name="country"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="Select your country"
-                          {...field}
-                          className=" bg-[#FAFAFA] border-b[1px]"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormLabel className="text-primary ">Password</FormLabel>
-                <FormField
-                  control={userform.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="password"
-                          {...field}
-                          type="password"
-                          className=" bg-[#FAFAFA] border-b[1px]"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormLabel className="text-primary ">
-                  Confirm Password
-                </FormLabel>
-                <FormField
-                  control={userform.control}
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="confirm password"
-                          {...field}
-                          type=" password"
-                          className=" bg-[#FAFAFA] border-b[1px]"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormLabel className="text-primary "> Phone</FormLabel>
-                <FormField
-                  control={userform.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="phone number"
-                          {...field}
-                          type="number"
-                          className=" bg-[#FAFAFA] border-b[1px]"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <Button
-                type="submit"
-                size={"lg"}
-                className="w-full mt-4 font-semibold text-white bg-blue-950 rounded-[20px] hover:bg-blue-950 hover:text-white"
+              <Grid
+                container
+                spacing={2}
+                sx={{ alignItems: "center", justifyContent: "center", pl: 10 }}
               >
-                Create Your Account
-              </Button>
-              <div className="flex-row text-center text-muted-foreground">
-                Already have an account?{" "}
-                <Button
-                  size={"sm"}
-                  variant={"link"}
-                  onClick={() => {
-                    router.push("/signin");
-                  }}
-                  className="mt-8 text-blue-950"
-                >
-                  Login
-                </Button>
-              </div>
-            </form>
-          </Form>
-        </div>
-      </div>
+                <Grid item xs={12}>
+                  <Typography
+                    variant="h4"
+                    align="left"
+                    color="#2D3748"
+                    component="p"
+                  >
+                    Personal details
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    error={formik.touched.name && Boolean(formik.errors.name)}
+                    helperText={formik.touched.name && formik.errors.name}
+                    name="name"
+                    label={"Name"}
+                    variant="outlined"
+                    sx={{ width: "80%", mt: 3, mb: 3 }}
+                  />
+                  <Grid item xs={12}>
+                    <TextField
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      error={
+                        formik.touched.email && Boolean(formik.errors.email)
+                      }
+                      helperText={formik.touched.email && formik.errors.email}
+                      name="email"
+                      label={"Email"}
+                      variant="outlined"
+                      sx={{ width: "80%", mt: 3, mb: 3 }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      value={formik.values.phoneNumber}
+                      onChange={formik.handleChange}
+                      error={
+                        formik.touched.phoneNumber &&
+                        Boolean(formik.errors.phoneNumber)
+                      }
+                      helperText={
+                        formik.touched.phoneNumber && formik.errors.phoneNumber
+                      }
+                      name="phoneNumber"
+                      label={"PhoneNumber"}
+                      variant="outlined"
+                      sx={{ width: "80%", mt: 3, mb: 3 }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      value={formik.values.password}
+                      onChange={formik.handleChange}
+                      error={
+                        formik.touched.password &&
+                        Boolean(formik.errors.password)
+                      }
+                      helperText={
+                        formik.touched.password && formik.errors.password
+                      }
+                      name="password"
+                      label={"Password"}
+                      variant="outlined"
+                      sx={{ width: "80%", mt: 3, mb: 3 }}
+                      type="password"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      value={formik.values.country}
+                      onChange={formik.handleChange}
+                      error={
+                        formik.touched.country && Boolean(formik.errors.country)
+                      }
+                      helperText={
+                        formik.touched.country && formik.errors.country
+                      }
+                      name="country"
+                      label={"Country"}
+                      variant="outlined"
+                      sx={{ width: "80%", mt: 3, mb: 3 }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      sx={{
+                        pt: 1.2,
+                        pb: 1.2,
+                        pl: 5,
+                        pr: 5,
+                        textTransform: "uppercase",
+                        width: "80%",
+                        backgroundColor: "#2D3748",
+                      }}
+                      type="submit"
+                    >
+                      Register
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
     </>
   );
-};
-
-export default SignupForm;
+}

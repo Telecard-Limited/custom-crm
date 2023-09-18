@@ -1,123 +1,173 @@
 "use client";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { User } from "@prisma/client";
-import * as z from "zod";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import axios from "axios";
 import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
+import { useFormik } from "formik";
+import loginValidation from "../validationSchema/loginshema";
+import { styled } from "@mui/material";
+import { GlobalStyles } from "@mui/material";
+import { Container } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Grid } from "@mui/material";
+import MenuItem from "../MenuItems";
 import { useRouter } from "next/navigation";
+import { Stack } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
+import { EmailRounded } from "@mui/icons-material";
+import HttpsIcon from "@mui/icons-material/Https";
 
-const LoginformSchema = z.object({
-  email: z.string().email(),
-  phone: z.string().transform((data) => Number(data)),
-  password: z
-    .string()
-    .min(4, { message: "password is required" })
-    .max(8, { message: "password must be between 4-8 characters" }),
-});
-
-const SignInForm = () => {
-  const useLoginForm = useForm<z.infer<typeof LoginformSchema>>({
-    resolver: zodResolver(LoginformSchema),
-    defaultValues: {
-      email: "",
-      password: "",
+export default function Login() {
+  const router = useRouter();
+  const formik = useFormik({
+    initialValues: loginValidation.initialValues,
+    validationSchema: loginValidation.loginSchema,
+    onSubmit: async (values) => {
+      const { email, password } = values;
     },
   });
-  const router = useRouter();
-  function onSubmit(values: z.infer<typeof LoginformSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-
-    router?.push("/dashboard");
-  }
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="container   bg-white rounded-[20px] p-7 drop-shadow-lg w-[30vw]">
-        <Form {...useLoginForm}>
-          <form onSubmit={useLoginForm.handleSubmit(onSubmit)}>
-            <div className="items-start justify-center ml-4 text-start">
-              <FormLabel className="text-primary "> Email</FormLabel>
-              <FormField
-                control={useLoginForm.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input placeholder="email" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormLabel className="text-primary ">Password</FormLabel>
-              <FormField
-                control={useLoginForm.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        placeholder="password"
-                        {...field}
-                        type="password"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex-row mt-4 text-lg font-semibold text-muted-foreground text-end">
-              <Button
-                size={"sm"}
-                variant={"link"}
-                onClick={() => {
-                  router.push("/signin");
-                }}
-                className="text-blue-500"
-              >
-                Forgot Password?
-              </Button>
-            </div>
-            <Button
-              type="submit"
-              onClick={() => router.push("/dashboard")}
-              size={"lg"}
-              className="w-full mt-4 font-semibold text-white bg-blue-500 rounded-[20px] hover:bg-blue-500 hover:text-white "
-            >
-              Login
-            </Button>
-            <div className="flex-row mt-3 text-sm text-center text-muted-foreground">
-              New User?{" "}
-              <Button
-                size={"sm"}
-                variant={"link"}
-                onClick={() => {
-                  router.push("/registeration");
-                }}
-                className="text-blue-500"
-              >
-                Register Here!
-              </Button>
-            </div>
-          </form>
-        </Form>
-      </div>{" "}
-    </div>
+    <>
+      <GlobalStyles
+        styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
+      />
+      <div className="align-middle cursor-pointer bg-blue-950 drop-shadow-sm">
+        <MenuItem
+          label="Register"
+          onClick={() => router?.push("/registeration")}
+        />
+      </div>
+      <Container maxWidth="lg" component="main" sx={{}}>
+        <Box sx={{ pl: 10, pr: 10, mt: 5 }}>
+          <Typography variant="h4" align="left" color="#2D3748" component="p">
+            Welcome Back!
+          </Typography>
+        </Box>
+      </Container>
+      <Container maxWidth="lg" component="main" sx={{ mt: 5 }}>
+        <Grid item xs={12}>
+          <Box
+            component="form"
+            onSubmit={formik.handleSubmit}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              mb: 2,
+              flexDirection: "column",
+            }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography
+                  fontWeight={400}
+                  fontSize={"24px"}
+                  textAlign="start"
+                >
+                  Email*
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  name="email"
+                  label={"Email"}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helperText={formik.touched.email && formik.errors.email}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailRounded sx={{ color: "#2D3748" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  type="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  name="password"
+                  label={"Password"}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.password && Boolean(formik.errors.password)
+                  }
+                  helperText={formik.touched.password && formik.errors.password}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <HttpsIcon sx={{ color: "#2D3748" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  type="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <div style={{ width: "100%", margin: "auto" }}>
+                  <Typography
+                    align="right"
+                    color="#2D3748"
+                    component="p"
+                    sx={{ margin: "20px 0px" }}
+                  >
+                    <Button
+                      variant="text"
+                      color={"secondary"}
+                      sx={{
+                        alignItems: "flex-end",
+                        justifyContent: "flex-end",
+                        fontWeight: 400,
+                        top: -2,
+                      }}
+                    >
+                      Forgot Your Password? Click here to reset
+                    </Button>
+                    .
+                  </Typography>
+                </div>
+              </Grid>
+              <Container maxWidth="lg" component="main" sx={{}}>
+                <Stack
+                  spacing={2}
+                  direction="row"
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center ",
+                    alignItems: "center",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    sx={{
+                      pt: 1.2,
+                      pb: 1.2,
+                      pl: 5,
+                      pr: 5,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "100%",
+                      backgroundColor: "#2D3748",
+                    }}
+                    type="submit"
+                  >
+                    Sign In
+                  </Button>
+                </Stack>
+              </Container>
+            </Grid>
+          </Box>
+        </Grid>
+      </Container>
+    </>
   );
-};
-
-export default SignInForm;
+}
