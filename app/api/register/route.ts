@@ -1,56 +1,57 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma/prsma";
-import { NextApiRequest } from "next";
 import bcrypt from "bcrypt";
-export async function GET(request: NextApiRequest) {
-  try {
-    await prisma.$connect();
-
-    const { email } = request.body;
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (!user) {
-      return NextResponse.error();
-    }
-
-    return NextResponse.json(user);
-  } catch (error) {
-    await prisma.$disconnect();
-    console.error("Error fetching user:", error);
-    return NextResponse.error();
-  }
-}
+import { NextApiRequest } from "next/types";
+import dbConnect from "@/lib/prisma/dbconn";
+import { User } from "../models";
 
 export async function POST(request: NextApiRequest) {
   try {
-    await prisma.$connect();
-    //@ts-ignore
+    await dbConnect();
+    console.log("Connected to MongoDB");
     const { email, name, password, phoneNumber, country } = request.body;
-    console.log(request.body);
 
-    // const hashedPassword = await bcrypt.hash(password, 12);
+    // Check if any required field is missing
+    if (!name || !email || !password || !phoneNumber || !country) {
+      return NextResponse.json({
+        message: "All fields are required",
+        statusCode: 400, // Bad Request
+      });
+    }
+
+    // Check if email already exists
+    const userAvailable = await User?.find({ email });
+    if (userAvailable) {
+      return NextResponse.json({
+        message: "Email already exists",
+        statusCode: 409, // Conflict
+      });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 12);
 
     // Create and save the user
-    const user = await prisma.user.create({
-      data: {
-        email,
-        name,
-        password,
-        isActive: false,
-        phoneNumber,
-        country,
-      },
+    const user = await User?.create({
+      name,
+      email,
+      password: hashedPassword,
+      phoneNumber,
+      country,
     });
+
+    if (!user) {
+      return NextResponse.json({
+        message: "Error creating user",
+        statusCode: 500, // Internal Server Error
+      });
+    }
 
     return NextResponse.json(user);
   } catch (err) {
-    await prisma.$disconnect();
     console.error(err);
     return NextResponse.json({
       message: "Error creating user",
-      success: false,
+      statusCode: 500, // Internal Server Error
     });
   }
 }
