@@ -16,37 +16,63 @@ import { Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import MenuItem from "../MenuItems";
 import { useRouter } from "next/navigation";
+
 export default function JoinUs() {
   const [Loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues: joinusValidation.initialValues,
     validationSchema: joinusValidation.joinusSchema,
-    onSubmit: async (data) => {
-      console.log("dataa", data);
-      const { email, name, password, phoneNumber, country } = data;
-
-      axios
-        .post("/api/register", data)
-        .then(() => {
-          toast.success("Onboarding User" + "User Registered Successfull");
-          setLoading(true);
-
-          router.push("/EmailVerification");
-        })
-        .catch((e: any) => {
-          toast.error(e);
-        })
-        .finally(() => {
-          setLoading(false);
-          if (AxiosError) {
-            // router.refresh();
-            router.push("/registeration");
-          } else {
-            router.push("/EmailVerification");
-          }
+    onSubmit: async (values, actions) => {
+      try {
+        // Define the data you want to send
+        const data = {
+          email: values.email,
+          name: values.name,
+          password: values.password,
+          phoneNumber: values.phoneNumber,
+          country: values.country,
+        };
+        // Send a POST request using Axios
+        const response = await axios.post("/api/register", data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
+        // Handle the response data here
+        console.log("Response:", response?.data);
+        // Perform any additional actions or state updates here
+      } catch (error) {
+        // Handle errors here
+        console.error("Error:", error);
+        // Perform error handling, such as displaying error messages
+      } finally {
+        // Ensure that Formik's form submission actions are called, e.g., to reset the form
+        actions.setSubmitting(false);
+      }
     },
+    // onSubmit: async (data) => {
+    //   console.log("dataa", data, "sending data to backend");
+
+    //   try {
+    //     const response = await axios.post("/api/register", data, {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     });
+    //     // Pass formik.values as data
+    //     console.log("response from backend", response);
+    //     if (response.data) {
+    //       toast.success("Registered");
+    //       console.log("front response", response.data);
+    //       // router?.push("/emailVerification");
+    //     }
+    //   } catch (e: any) {
+    //     toast.error("Error in Registering user", e);
+    //     // router.push("/registeration");
+    //   }
+    // },
   });
+
   const router = useRouter();
   return (
     <>
