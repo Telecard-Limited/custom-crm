@@ -25,8 +25,37 @@ export default function Login() {
   const formik = useFormik({
     initialValues: loginValidation.initialValues,
     validationSchema: loginValidation.loginSchema,
-    onSubmit: async (values) => {
-      const { email, password } = values;
+    onSubmit: async (values, actions) => {
+      try {
+        // Define the data you want to send
+        const data = {
+          email: values.email,
+
+          password: values.password,
+        };
+        // Send a POST request using Axios
+        const response = await axios.post("/api/login", data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        // Handle the response data here
+        console.log("Response:", response?.data);
+        toast.success("User LoggedIn successfully");
+        router.refresh();
+        router.push("/dashboard");
+        // Perform any additional actions or state updates here
+      } catch (error) {
+        // Handle errors here
+        console.error("Error:", error);
+        toast.error("Error in logging in user ");
+        router.refresh();
+        router.push("/signin");
+        // Perform error handling, such as displaying error messages
+      } finally {
+        // Ensure that Formik's form submission actions are called, e.g., to reset the form
+        actions.setSubmitting(false);
+      }
     },
   });
   return (
@@ -109,7 +138,7 @@ export default function Login() {
                   }}
                   variant="outlined"
                   sx={{ width: "100%" }}
-                  type="email"
+                  type="password"
                 />
               </Grid>
               <Grid item xs={12}>

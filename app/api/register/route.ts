@@ -22,7 +22,7 @@ export async function POST(request: NextApiRequest) {
     // Check if email already exists
     const userAvailable = await User?.findOne({ email });
     console.log("ffffQAffffffff", userAvailable);
-    if (userAvailable) {
+    if (!userAvailable) {
       const transporter = nodemailer.createTransport({
         host: "203.130.2.136",
         port: 25,

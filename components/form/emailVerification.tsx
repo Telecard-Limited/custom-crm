@@ -13,7 +13,12 @@ import { Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import { useRouter } from "next/navigation";
 import MailIcon from "@mui/icons-material/Mail";
+
 const EmailVerification = () => {
+  const router = useRouter();
+  setTimeout(() => {
+    router?.push("/signin");
+  }, 3000);
   return (
     <>
       <GlobalStyles
