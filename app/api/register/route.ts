@@ -3,7 +3,9 @@ import bcrypt from "bcrypt";
 import { NextApiRequest } from "next/types";
 import dbConnect from "@/lib/prisma/dbconn";
 import { User } from "../models";
-
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
 export async function POST(request: NextApiRequest) {
   try {
     await dbConnect();
@@ -18,11 +20,43 @@ export async function POST(request: NextApiRequest) {
     const { email, name, password, phoneNumber, country } = requestData;
 
     // Check if email already exists
-    const userAvailable = await User?.find({ email });
-    if (userAvailable.length > 0) {
+    const userAvailable = await User?.findOne({ email });
+    console.log("ffffQAffffffff", userAvailable);
+    if (userAvailable) {
+      const transporter = nodemailer.createTransport({
+        host: "203.130.2.136",
+        port: 25,
+        auth: {
+          user: process.env.SERVERMAILER || "esg_feet@telecard.com.pk",
+          pass: process.env.SERVERPASSWORD || "AccessLHE12",
+        },
+      });
+
+      const mailOptions = {
+        from: process.env.SERVERMAILER,
+        to: email,
+        subject: "Welcome ",
+        html: `<p>Subject : </p><p>From : ${process.env.SERVERMAILER}</p><p>Name : ${name}</p><p> Message : ${requestData?.data}</p>`,
+      };
+      // send mail with defined transport object
+      await transporter.sendMail(mailOptions, function (error) {
+        if (error) {
+          return NextResponse.json({
+            message: "Something went wrong",
+            errors: error,
+            statusCode: 500,
+          });
+        } else {
+          return NextResponse.json({
+            message: `Email sent to ${email}`,
+            statusCode: 200,
+          });
+        }
+      });
+
       return NextResponse.json({
-        message: "Email already exists",
-        statusCode: 409, // Conflict
+        message: "email must be unique",
+        statusCode: 409,
       });
     }
 
