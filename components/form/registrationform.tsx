@@ -40,10 +40,16 @@ export default function JoinUs() {
         });
         // Handle the response data here
         console.log("Response:", response?.data);
+        toast.success("User onboarded succesfully");
+        router.refresh();
+        router.push("/emaiverification");
         // Perform any additional actions or state updates here
       } catch (error) {
         // Handle errors here
         console.error("Error:", error);
+        toast.error("Error in user onboarding");
+        router.refresh();
+        router.push("/registeration");
         // Perform error handling, such as displaying error messages
       } finally {
         // Ensure that Formik's form submission actions are called, e.g., to reset the form

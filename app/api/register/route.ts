@@ -8,19 +8,18 @@ export async function POST(request: NextApiRequest) {
   try {
     await dbConnect();
     console.log("Connected to MongoDB");
-    const { email, name, password, phoneNumber, country } = request.body;
+    let passedValue = await new Response(request.body).text();
 
-    // Check if any required field is missing
-    if (!name || !email || !password || !phoneNumber || !country) {
-      return NextResponse.json({
-        message: "All fields are required",
-        statusCode: 400, // Bad Request
-      });
-    }
+    const requestData = JSON.parse(passedValue);
+    console.log({ requestData });
+    console.log(request.body);
+
+    // Extract data from the parsed JSON
+    const { email, name, password, phoneNumber, country } = requestData;
 
     // Check if email already exists
     const userAvailable = await User?.find({ email });
-    if (userAvailable) {
+    if (userAvailable.length > 0) {
       return NextResponse.json({
         message: "Email already exists",
         statusCode: 409, // Conflict
@@ -45,12 +44,13 @@ export async function POST(request: NextApiRequest) {
         statusCode: 500, // Internal Server Error
       });
     }
+    await user.save();
 
     return NextResponse.json(user);
   } catch (err) {
     console.error(err);
     return NextResponse.json({
-      message: "Error creating user",
+      message: "Internal Server Error",
       statusCode: 500, // Internal Server Error
     });
   }
