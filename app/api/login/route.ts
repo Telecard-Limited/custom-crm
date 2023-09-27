@@ -31,13 +31,13 @@ export async function POST(request: NextApiRequest) {
     }
 
     // Generate a JWT token
-    const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET || "secrert",
-      {
-        expiresIn: "1h", // Token expires in 1 hour (adjust as needed)
-      }
-    );
+    // const token = jwt.sign(
+    //   { userId: user._id },
+    //   process.env.JWT_SECRET || "secrert",
+    //   {
+    //     expiresIn: "1h", // Token expires in 1 hour (adjust as needed)
+    //   }
+    // );
     // Check if email already exists
 
     // Hash the password

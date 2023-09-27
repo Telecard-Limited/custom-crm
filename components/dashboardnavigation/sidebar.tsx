@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
 } from "@heroicons/react/24/outline";
+import DashboardCards from "./dashboardCards";
 
 // add NavItem prop to component prop
 type Props = {
@@ -23,12 +24,30 @@ const Sidebar = ({
   setCollapsed,
 }: Props) => {
   const Icon = collapsed ? ChevronDoubleRightIcon : ChevronDoubleLeftIcon;
+  useEffect(() => {
+    function handleResize() {
+      const sidebar = document.getElementById("sidebar");
+      if (sidebar) {
+        sidebar.style.height = `${window.innerHeight}px`;
+      }
+    }
+
+    handleResize(); // Set initial height
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div
+      id="sidebar"
       className={cn({
         "bg-blue-950 text-zinc-50 fixed md:static md:translate-x-0 z-20": true,
         "transition-all duration-300 ease-in-out": true,
-        "w-[300px]": !collapsed,
+        "w-[200px]": !collapsed,
         "w-16": collapsed,
         "-translate-x-full": !shown,
       })}
@@ -55,6 +74,7 @@ const Sidebar = ({
             <Icon className="w-5 h-5" />
           </button>
         </div>
+
         <nav className="flex-grow">
           <ul
             className={cn({
@@ -80,6 +100,7 @@ const Sidebar = ({
             })}
           </ul>
         </nav>
+
         <div
           className={cn({
             "grid place-content-stretch p-4 ": true,
@@ -95,14 +116,14 @@ const Sidebar = ({
               alt="profile image"
               className="rounded-full"
             /> */}
-            {!collapsed && (
+            {/* {!collapsed && (
               <div className="flex flex-col ">
                 <span className="my-0 text-indigo-50">Tom Cook</span>
                 <Link href="/dashboard" className="text-sm text-indigo-200">
                   View Profile
                 </Link>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
