@@ -30,14 +30,6 @@ const Boards = [
     teamname: "Angular JamPack",
     description: "Oluwole Team",
   },
-  {
-    teamname: "Angular JamPack",
-    description: "Oluwole Team",
-  },
-  {
-    teamname: "Angular JamPack",
-    description: "Oluwole Team",
-  },
 ];
 //@ts-ignore
 function extractFirstLetters(boards) {
@@ -593,7 +585,7 @@ const DasboardCards = () => {
               {Boards?.map((board: any, i: any) => {
                 return (
                   <>
-                    <Grid container xs={12} sx={{ mt: 1 }}>
+                    <Grid container xs={12} sx={{ mt: 1, mb: 1 }}>
                       <Paper
                         elevation={2}
                         sx={{

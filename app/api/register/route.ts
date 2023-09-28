@@ -53,13 +53,13 @@ export async function POST(request: NextApiRequest) {
           });
         }
       });
-
+    }
+    if (userAvailable?.length > 0) {
       return NextResponse.json({
         message: "email must be unique",
         statusCode: 409,
       });
     }
-
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 12);
 

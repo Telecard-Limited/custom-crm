@@ -24,24 +24,31 @@ export interface UserDocument extends UserType, Document {
   phoneNumber: string;
   role: "ADMIN" | "SUPERADMIN";
   isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 type MergeType<A, B> = Omit<A, keyof B> & B;
 
-const UserSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true },
-  emailVerified: Boolean,
-  password: String,
-  image: String,
-  country: String,
-  phoneNumber: String,
-  role: {
-    type: String,
-    enum: ["ADMIN", "SUPERADMIN"],
-    default: "ADMIN",
+const UserSchema = new mongoose.Schema(
+  {
+    name: String,
+    email: { type: String, unique: true },
+    emailVerified: Boolean,
+    password: String,
+    image: String,
+    country: String,
+    phoneNumber: String,
+    role: {
+      type: String,
+      enum: ["ADMIN", "SUPERADMIN"],
+      default: "ADMIN",
+    },
+    isActive: Boolean,
+    createdAt: Date,
+    updatedAt: Date,
   },
-  isActive: Boolean,
-});
+  { timestamps: true }
+);
 
 export default mongoose.models?.User ||
   mongoose.model<UserDocument>("User", UserSchema);
