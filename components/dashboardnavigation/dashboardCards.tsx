@@ -1,31 +1,47 @@
+"use client";
+
 import {
-  Button,
-  Checkbox,
   Container,
-  Divider,
   Grid,
   Paper,
   Typography,
+  Divider,
+  Button,
+  Checkbox,
 } from "@mui/material";
+const Boards = [
+  {
+    teamname: "Angular JamPack",
+    description: "Oluwole Team",
+  },
+  {
+    teamname: "Angular JamPack",
+    description: "Oluwole Team",
+  },
+  {
+    teamname: "Angular JamPack",
+    description: "Oluwole Team",
+  },
+  {
+    teamname: "Angular JamPack",
+    description: "Oluwole Team",
+  },
+  {
+    teamname: "Angular JamPack",
+    description: "Oluwole Team",
+  },
+  {
+    teamname: "Angular JamPack",
+    description: "Oluwole Team",
+  },
+  {
+    teamname: "Angular JamPack",
+    description: "Oluwole Team",
+  },
+];
+//@ts-ignore
+
 const tickets = [
-  {
-    icon: <Checkbox />,
-    title: "Customer Review Meeting",
-    status: "business",
-    Date: "July ,2023",
-  },
-  {
-    icon: <Checkbox />,
-    title: "Customer Review Meeting",
-    status: "business",
-    Date: "July ,2023",
-  },
-  {
-    icon: <Checkbox />,
-    title: "Customer Review Meeting",
-    status: "business",
-    Date: "July ,2023",
-  },
   {
     icon: <Checkbox />,
     title: "Customer Review Meeting",
@@ -46,14 +62,10 @@ const tickets = [
   },
 ];
 
-const DashboardCards = () => {
+const DasboardCards = () => {
   return (
-    <div
-      style={{
-        overflowY: "scroll",
-      }}
-    >
-      <Container maxWidth="xl" sx={{}}>
+    <>
+      <Container sx={{ overflowY: "scroll" }} maxWidth="xl">
         <Grid container spacing={2} gap={4}>
           {/* Card 1 */}
 
@@ -122,8 +134,11 @@ const DashboardCards = () => {
                   Efficiently Monitor Your Daily Task and Ticket Progress
                 </Typography>
               </Grid>
+
+              {/* Add content for Card 1 */}
             </Paper>
           </Grid>
+
           <Grid
             item
             xs={12}
@@ -132,7 +147,7 @@ const DashboardCards = () => {
             sx={{
               position: "absolute",
 
-              ml: 95,
+              ml: 100,
               mt: 4,
               cursor: "pointer",
               display: "flex",
@@ -190,9 +205,16 @@ const DashboardCards = () => {
                   466
                 </Typography>
               </Grid>
+
+              {/* Add content for Card 1 */}
             </Paper>
           </Grid>
+        </Grid>
+      </Container>
 
+      <Container maxWidth="xl" sx={{ overflowY: "scroll" }}>
+        <Grid container spacing={2} gap={4}>
+          {/* Card 1 */}
           <Grid
             item
             xs={12}
@@ -201,7 +223,7 @@ const DashboardCards = () => {
             sx={{
               position: "absolute",
               ml: 24,
-              mt: 25,
+              mt: 30,
               cursor: "pointer",
               display: "flex",
               flexDirection: "row",
@@ -234,7 +256,7 @@ const DashboardCards = () => {
                     pl: 1.5,
                   }}
                 >
-                  Completed Tickets
+                  Completed Ticket
                 </Typography>
                 <img
                   src="/images/CompletedTicketsIcons.png"
@@ -283,8 +305,8 @@ const DashboardCards = () => {
             md={4}
             sx={{
               position: "absolute",
-              ml: 95,
-              mt: 25,
+              ml: 100,
+              mt: 30,
               cursor: "pointer",
               display: "flex",
               flexDirection: "row",
@@ -361,228 +383,8 @@ const DashboardCards = () => {
           </Grid>
         </Grid>
       </Container>
-      <Container maxWidth="xl" sx={{}}>
-        <Grid container spacing={2} gap={4}>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            sx={{
-              position: "absolute",
-              ml: 24,
-              mt: 50,
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-            }}
-          >
-            <Paper
-              elevation={3}
-              style={{
-                padding: 10,
-                width: "100%",
-              }}
-            >
-              <Grid
-                item
-                xs={12}
-                sx={{
-                  flexDirection: "row",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-around",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontWeight: "bold",
-                    color: "#172554",
-                    fontSize: "17px",
-                    mt: 1.5,
-                    pl: 1.5,
-                  }}
-                >
-                  Tickets
-                </Typography>
-                <Button
-                  onClick={() => {}}
-                  sx={{
-                    width: 100,
-                    color: "#172554",
-                    mt: 1.5,
-                    cursor: "pointer",
-
-                    height: 30,
-                    fontSize: "12px",
-                    borderRadius: "12px",
-                  }}
-                >
-                  All tickets
-                </Button>
-                <Button
-                  onClick={() => {}}
-                  sx={{
-                    width: 100,
-                    cursor: "pointer",
-
-                    color: "#172554",
-                    mt: 1.5,
-                    height: 30,
-                    fontSize: "12px",
-                    borderRadius: "12px",
-                  }}
-                >
-                  OverView
-                </Button>
-                <Button
-                  onClick={() => {}}
-                  sx={{
-                    width: 100,
-                    color: "#172554",
-                    mt: 1.5,
-                    height: 30,
-                    cursor: "pointer",
-
-                    fontSize: "12px",
-                    borderRadius: "12px",
-                  }}
-                >
-                  Completed
-                </Button>
-              </Grid>
-              <Divider />
-              {tickets?.map((ticket: any, i: any) => {
-                return (
-                  <>
-                    <div className="flex items-center justify-evenly " key={i}>
-                      <div>{ticket?.icon}</div>
-
-                      {ticket?.title}
-                      <div className="ml-5">{ticket?.status}</div>
-                      <div className="ml-5">{ticket?.Date}</div>
-                    </div>
-                  </>
-                );
-              })}
-              <Divider />
-              <Grid
-                item
-                xs={12}
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Button
-                  variant="text"
-                  sx={{ color: "#172554", fontSize: "10px" }}
-                >
-                  See More
-                </Button>
-                <Button
-                  variant="text"
-                  sx={{ color: "#172554", fontSize: "10px" }}
-                >
-                  Add New Ticket
-                </Button>
-              </Grid>
-            </Paper>
-          </Grid>
-        </Grid>
-        <Grid container spacing={2} gap={4}>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            sx={{
-              position: "absolute",
-              ml: 95,
-              mt: 52,
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-            }}
-          >
-            <Paper
-              elevation={3}
-              style={{
-                padding: 10,
-                width: "100%",
-              }}
-            >
-              <Grid
-                item
-                xs={12}
-                sx={{
-                  flexDirection: "row",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontWeight: "bold",
-                    color: "#172554",
-                    fontSize: "17px",
-                    mt: 1.5,
-                    pl: 1.5,
-                  }}
-                >
-                  Boards
-                </Typography>
-                <Button
-                  onClick={() => {}}
-                  sx={{
-                    width: 100,
-                    color: "#172554",
-                    mt: 1.5,
-                    cursor: "pointer",
-
-                    height: 30,
-                    fontSize: "12px",
-                    borderRadius: "12px",
-                  }}
-                >
-                  Recent
-                </Button>
-              </Grid>
-              <Divider />
-              {tickets?.map((ticket: any, i: any) => {
-                return <></>;
-              })}
-              <Divider />
-              <Grid
-                item
-                xs={12}
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Button
-                  variant="text"
-                  sx={{ color: "#172554", fontSize: "10px" }}
-                >
-                  See More
-                </Button>
-                <Button
-                  variant="text"
-                  sx={{ color: "#172554", fontSize: "10px" }}
-                >
-                  Add New Ticket
-                </Button>
-              </Grid>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-    </div>
+    </>
   );
 };
 
-export default DashboardCards;
+export default DasboardCards;
