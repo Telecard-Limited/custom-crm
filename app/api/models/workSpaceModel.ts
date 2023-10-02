@@ -7,5 +7,5 @@ const WorkSpaceSchema = new mongoose.Schema({
   updatedAt: Date,
 });
 
-const WorkSpace = mongoose.model("WorkSpace", WorkSpaceSchema);
-module.exports = WorkSpace;
+export default mongoose.models?.WorkSpace ||
+  mongoose.model("WorkSpace", WorkSpaceSchema);

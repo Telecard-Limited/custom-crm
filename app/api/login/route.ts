@@ -29,6 +29,26 @@ export async function POST(request: NextApiRequest) {
     if (!passwordMatch) {
       return NextResponse.json({ message: "Invalid credentials" });
     }
+    // If both email and password are valid, return success along with the username
+    return NextResponse.json({
+      message: "Login successful",
+      statusCode: 200,
+      username: user?.name, // Include the username in the response
+    });
+    // if (email && passwordMatch) {
+    //   const username = await User?.findOne({ email });
+    //   if (username) {
+    //     return NextResponse.json({
+    //       message: "username found",
+    //       statusCode: "200",
+    //     });
+    //   }
+    // } else {
+    //   return NextResponse.json({
+    //     message: "username not found",
+    //     statusCode: "400",
+    //   });
+    // }
 
     // Generate a JWT token
     // const token = jwt.sign(
@@ -46,7 +66,7 @@ export async function POST(request: NextApiRequest) {
 
     if (!user) {
       return NextResponse.json({
-        message: "Error creating user",
+        message: "Error fetching user",
         statusCode: 500, // Internal Server Error
       });
     }
