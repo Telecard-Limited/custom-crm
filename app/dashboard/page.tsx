@@ -1,5 +1,11 @@
+import ClientOnly from "@/components/clientonly";
+import Layout from "@/components/dashboardnavigation";
 const Dashboard = () => {
-  return <div></div>;
+  return (
+    <ClientOnly>
+      <Layout />
+    </ClientOnly>
+  );
 };
 
 export default Dashboard;
