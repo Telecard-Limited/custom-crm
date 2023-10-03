@@ -35,43 +35,6 @@ export async function POST(request: NextApiRequest) {
       statusCode: 200,
       username: user?.name, // Include the username in the response
     });
-    // if (email && passwordMatch) {
-    //   const username = await User?.findOne({ email });
-    //   if (username) {
-    //     return NextResponse.json({
-    //       message: "username found",
-    //       statusCode: "200",
-    //     });
-    //   }
-    // } else {
-    //   return NextResponse.json({
-    //     message: "username not found",
-    //     statusCode: "400",
-    //   });
-    // }
-
-    // Generate a JWT token
-    // const token = jwt.sign(
-    //   { userId: user._id },
-    //   process.env.JWT_SECRET || "secrert",
-    //   {
-    //     expiresIn: "1h", // Token expires in 1 hour (adjust as needed)
-    //   }
-    // );
-    // Check if email already exists
-
-    // Hash the password
-
-    // Create and save the user
-
-    if (!user) {
-      return NextResponse.json({
-        message: "Error fetching user",
-        statusCode: 500, // Internal Server Error
-      });
-    }
-
-    return NextResponse.json(user);
   } catch (err) {
     console.error(err);
     return NextResponse.json({

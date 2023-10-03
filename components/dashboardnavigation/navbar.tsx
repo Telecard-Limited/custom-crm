@@ -10,6 +10,7 @@ import { styled, alpha } from "@mui/material/styles";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { cn } from "@/lib/utils";
 import { Box, Container, GlobalStyles, Grid } from "@mui/material";
+import { useRouter } from "next/navigation";
 type Props = {
   /**
    * Allows the parent component to modify the state when the
@@ -59,6 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 const Navbar = (props: Props) => {
+  const router = useRouter();
   return (
     <nav
       className={cn({
@@ -111,6 +113,7 @@ const Navbar = (props: Props) => {
               flexDirection: "row",
             }}
             component={"button"}
+            onClick={() => router.push("/dashboard/report")}
           >
             <img
               src="/images/reporticons.svg"
