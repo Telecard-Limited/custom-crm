@@ -27,8 +27,8 @@ const ReportPages = () => {
           flexDirection: "row",
         }}
       >
-        <Insights />
         <InsightsByCategory />
+        <Insights />
       </Container>
       <Grid
         container
