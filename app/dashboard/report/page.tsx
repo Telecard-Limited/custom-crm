@@ -1,60 +1,59 @@
 "use client";
 import Insights from "@/components/reportsComponent/Insights";
 import ReportContainer from "@/components/reportsComponent/ReportContainer";
-import PieChart from "@/components/reportsComponent/insightsAsPieChart";
-import InsightsByCategory from "@/components/reportsComponent/insightsbyAssignTickets";
-import DoughnutChart from "@/components/reportsComponent/insightsbyTicketStatus";
-import { Button, Container } from "@mui/material";
 
+import InsightsByCategory from "@/components/reportsComponent/insightsbyAssignTickets";
+
+import { Button, Container, Grid } from "@mui/material";
+import axios from "axios";
 const ReportPages = () => {
   return (
     <>
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: "#01579b",
-        }}
-      >
-        Generate Report
-      </Button>
       <Container
         maxWidth={"xl"}
         sx={{
           display: "flex",
           alignItems: "center",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          mt: 5,
         }}
       >
         <ReportContainer />
-        <Insights />
       </Container>
       <Container
         maxWidth={"xl"}
         sx={{
           display: "flex",
           alignItems: "center",
+          justifyContent: "space-between",
           flexDirection: "row",
-
-          justifyContent: "space-around",
         }}
       >
-        <DoughnutChart />
+        <Insights />
         <InsightsByCategory />
       </Container>
-      <Container
-        maxWidth={"xl"}
+      <Grid
+        container
         sx={{
-          display: "flex",
           alignItems: "center",
-          flexDirection: "row",
-
-          justifyContent: "space-around",
+          justifyContent: "center",
+          display: "flex",
         }}
       >
-        <PieChart />
-      </Container>
+        <Grid
+          item
+          component={"button"}
+          sx={{
+            backgroundColor: "#172554",
+            width: "95%",
+            height: "40px",
+            mt: 4,
+
+            color: "white",
+            borderRadius: "10px",
+          }}
+        >
+          Generate Report
+        </Grid>
+      </Grid>
     </>
   );
 };

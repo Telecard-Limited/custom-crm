@@ -4,19 +4,20 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 //@ts-ignore
 import { faker } from "@faker-js/faker";
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend
@@ -24,13 +25,30 @@ ChartJS.register(
 
 export const options = {
   responsive: true,
+  interaction: {
+    mode: "index" as const,
+    intersect: false,
+  },
+  stacked: false,
   plugins: {
-    legend: {
-      position: "top" as const,
-    },
     title: {
       display: true,
-      text: "Assign Ticket ",
+      text: "Assign Tickets",
+    },
+  },
+  scales: {
+    y: {
+      type: "linear" as const,
+      display: true,
+      position: "left" as const,
+    },
+    y1: {
+      type: "linear" as const,
+      display: false,
+      position: "left" as const,
+      grid: {
+        drawOnChartArea: false,
+      },
     },
   },
 };
@@ -58,8 +76,8 @@ export const data = {
 const InsightsByCategory = () => {
   return (
     <Container maxWidth={"xl"}>
-      <Paper elevation={3} sx={{ mt: -7 }}>
-        <Bar options={options} data={data} />
+      <Paper elevation={3} sx={{ mt: 4 }}>
+        <Line options={options} data={data} />;
       </Paper>
     </Container>
   );

@@ -52,7 +52,7 @@ export const data = {
   datasets: [
     {
       label: "Dataset 1",
-      data: labels.map(() => faker.number.int({ min: 0, max: 100 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
   ],
@@ -61,6 +61,8 @@ export const data = {
 const Insights = () => {
   return (
     <Container maxWidth={"xl"}>
+      {" "}
+      {/* Check if "xl" is the desired maxWidth */}
       <Paper elevation={3} sx={{ mt: 4 }}>
         <Bar options={options} data={data} />
       </Paper>

@@ -39,7 +39,7 @@ const options = {
 const DoughnutChart = () => {
   return (
     <Container maxWidth="xl">
-      <Paper elevation={3} sx={{ mt: 4, mb: 4, width: "80%" }}>
+      <Paper elevation={3} sx={{ width: "80%" }}>
         <Doughnut data={data} options={options} />;
       </Paper>
     </Container>

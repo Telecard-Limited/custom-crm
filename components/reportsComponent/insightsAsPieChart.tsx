@@ -64,7 +64,7 @@ const PieChart = () => {
         elevation={3}
         sx={{
           mt: 4,
-          width: "75vw",
+          width: "100%",
 
           alignItems: "center",
           justifyContent: "center",

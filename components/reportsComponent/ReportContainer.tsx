@@ -3,7 +3,7 @@ import { Container, Grid, Paper, Typography } from "@mui/material";
 const ReportContainer = () => {
   return (
     <>
-      <Container maxWidth={"sm"}>
+      <Container maxWidth={"xl"}>
         <Grid
           container
           sx={{ flexDirection: "row", justifyContent: "space-between" }}
