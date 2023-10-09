@@ -10,7 +10,6 @@ const ReportContainer = () => {
         >
           <Grid item xs={12} md={6} sx={{ mt: 4 }}>
             <Paper
-              elevation={2}
               sx={{
                 p: 3,
                 width: "80%",
@@ -30,7 +29,6 @@ const ReportContainer = () => {
           </Grid>
           <Grid item xs={12} md={6} sx={{ mt: 4 }}>
             <Paper
-              elevation={2}
               sx={{
                 p: 3,
                 ml: 5,
@@ -56,7 +54,6 @@ const ReportContainer = () => {
         >
           <Grid item xs={12} md={6} sx={{ mt: 4 }}>
             <Paper
-              elevation={2}
               sx={{
                 p: 3,
                 width: "80%",
@@ -76,7 +73,6 @@ const ReportContainer = () => {
           </Grid>
           <Grid item xs={12} md={6} sx={{ mt: 4 }}>
             <Paper
-              elevation={2}
               sx={{
                 p: 3,
                 ml: 5,

@@ -76,7 +76,7 @@ export const data = {
 const InsightsByCategory = () => {
   return (
     <Container maxWidth={"xl"}>
-      <Paper elevation={3} sx={{ mt: 4 }}>
+      <Paper sx={{ mt: 4 }}>
         <Line options={options} data={data} />;
       </Paper>
     </Container>

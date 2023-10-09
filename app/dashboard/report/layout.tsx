@@ -3,6 +3,7 @@ import { Outfit } from "next/font/google";
 import { ThemeProvider } from "@/providers/theme-provider";
 import ClientOnly from "@/components/clientonly";
 import ToasterProvider from "@/providers/toast-providers";
+import ReportHeader from "@/components/reportsComponent/ReportHeader";
 const font = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function ReportLayout({
     <html lang="en">
       <body className={font.className}>
         <ClientOnly>
+          <ReportHeader />
           <ToasterProvider />
         </ClientOnly>
         <ThemeProvider

@@ -63,7 +63,7 @@ const Insights = () => {
     <Container maxWidth={"xl"}>
       {" "}
       {/* Check if "xl" is the desired maxWidth */}
-      <Paper elevation={3} sx={{ mt: 4 }}>
+      <Paper sx={{ mt: 4 }}>
         <Bar options={options} data={data} />
       </Paper>
     </Container>
