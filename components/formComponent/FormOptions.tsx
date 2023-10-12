@@ -59,7 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-const Navbar = (props: Props) => {
+const Appbar = (props: Props) => {
   const router = useRouter();
   return (
     <nav
@@ -186,7 +186,6 @@ const Navbar = (props: Props) => {
               flexDirection: "row",
             }}
             component={"button"}
-            onClick={() => router.push("/dashboard/forms")}
           >
             <img
               src="/images/createform.png"
@@ -201,6 +200,7 @@ const Navbar = (props: Props) => {
           </Grid>
         </Grid>
       </div>
+
       <div className="gap-6 gap-x-4 ">
         <Grid container sx={{ gap: "3", ml: 3.5 }}>
           <Grid
@@ -235,4 +235,4 @@ const Navbar = (props: Props) => {
   );
 };
 
-export default Navbar;
+export default Appbar;

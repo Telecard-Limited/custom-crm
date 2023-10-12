@@ -1,11 +1,11 @@
 "use client";
 
-import Appbar from "../Appbar";
+import Appbar from "@/components/Appbar";
 
 const ReportHeader = () => {
   return (
     <>
-      <Appbar />
+      <Appbar onMenuButtonClick={() => {}} />
     </>
   );
 };
