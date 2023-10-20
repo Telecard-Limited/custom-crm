@@ -46,12 +46,6 @@ export async function POST(request: NextApiRequest) {
     const newForm = new Forms({ title, fields });
     const savedForm = await newForm.save();
 
-    const forms = await Forms.find({}); // You may need to adjust this based on your database library
-    var titles = forms.map(function (item) {
-      return item.title;
-    });
-    console.log(titles);
-    await NextResponse.json(forms);
     // const user = await User.findById(userId); // Find the user by ID
     // if (!user) {
     //   return NextResponse.json({ error: "User not found" });

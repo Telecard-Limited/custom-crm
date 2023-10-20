@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-import { NextApiRequest } from "next/types";
+import { NextApiRequest } from "next";
 import dbConnect from "@/lib/prisma/dbconn";
 import { User } from "../models";
 import jwt from "jsonwebtoken";

@@ -1,9 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { NextApiRequest } from "next";
 import { POST } from "./app/api/register/route";
 import { POST as GET } from "./app/api/login/route";
 import { POST as formPOST } from "./app/api/forms/route";
 // import { GET as getForms } from "./app/api/forms/route";
-export function middleware(request: NextRequest) {
+export function middleware(request: NextApiRequest) {
   // if (request.nextUrl.pathname === '/') {
   //   return NextResponse.redirect(new URL('/', request.url));
   // }

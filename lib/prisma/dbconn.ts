@@ -3,7 +3,7 @@ declare global {
   // var mongoose: any
 }
 
-const MONGODB_URI: any = process.env.DATABASE_URL;
+const MONGODB_URI: any = process.env.PRODUCTION_DATABASE_URL;
 
 if (!MONGODB_URI) {
   throw new Error(

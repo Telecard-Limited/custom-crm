@@ -42,7 +42,7 @@ export default function JoinUs() {
         console.log("Response:", response?.data);
         toast.success("User onboarded succesfully");
         router.refresh();
-        router.push("/emailverification");
+        router.push("/EmailVerification");
         // Perform any additional actions or state updates here
       } catch (error) {
         // Handle errors here
