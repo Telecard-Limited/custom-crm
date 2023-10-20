@@ -67,7 +67,8 @@ const FormTable = () => {
               mt: 4,
               backgroundColor: "#2D3748 !important",
             }}
-            onClick={() => setCreateModal("true")}
+            //@ts-ignore
+            onClick={() => setCreateModal(!createModal)}
           >
             Create
           </Button>

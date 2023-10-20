@@ -6,17 +6,18 @@ import { NextResponse } from "next/server";
 export async function POST(request: NextApiRequest) {
   try {
     await dbConnect();
+    //retriving on form
 
     //Form creation backend
     let passedValue = await new Response(request.body).text();
 
     const requestData = JSON.parse(passedValue);
-    console.log({ requestData });
-    console.log(request.body);
+    // console.log({ requestData });
+    console.log("req", requestData);
 
-    const { title, fields, userId } = requestData;
+    const { title, fields } = requestData;
 
-    if (!title || !fields || !userId) {
+    if (!title || !fields) {
       return NextResponse.json({
         message: "Invalid request",
         statusCode: 400,
@@ -41,13 +42,20 @@ export async function POST(request: NextApiRequest) {
       // You can handle each field object as needed
     }
 
-    const newForm = new Forms(requestData);
+    // const newForm = new Forms(requestData);
+    const newForm = new Forms({ title, fields });
     const savedForm = await newForm.save();
 
-    const user = await User.findById(userId); // Find the user by ID
-    if (!user) {
-      return NextResponse.json({ error: "User not found" });
-    }
+    const forms = await Forms.find({}); // You may need to adjust this based on your database library
+    var titles = forms.map(function (item) {
+      return item.title;
+    });
+    console.log(titles);
+    await NextResponse.json(forms);
+    // const user = await User.findById(userId); // Find the user by ID
+    // if (!user) {
+    //   return NextResponse.json({ error: "User not found" });
+    // }
 
     return NextResponse.json(savedForm);
   } catch (e: any) {
@@ -59,26 +67,32 @@ export async function POST(request: NextApiRequest) {
   }
 }
 
-export async function GET() {
-  try {
-    await dbConnect();
+// export async function GET() {
+//   try {
+//     await dbConnect();
+//     //fetching all forms
+//     const form = await Forms.find({});
 
-    // Assuming Forms has a 'createdBy' field, populate it
-    const forms = await Forms.findOne({}).populate("createdBy");
+//     if (!form || form.length === 0) {
+//       return NextResponse.json({ message: "No forms found", statusCode: 404 });
+//     }
 
-    if (!forms) {
-      return NextResponse.json({ message: "No forms found", statusCode: 404 });
-    }
+//     // Assuming Forms has a 'createdBy' field, populate it
+//     const forms = await Forms.findOne({}).populate("createdBy");
 
-    return NextResponse.json({
-      message: { forms },
-      statusCode: 200,
-    });
-  } catch (e: any) {
-    console.error(e);
-    return NextResponse.json({
-      message: "Internal Server Error",
-      statusCode: 500,
-    });
-  }
-}
+//     if (!forms) {
+//       return NextResponse.json({ message: "No forms found", statusCode: 404 });
+//     }
+
+//     return NextResponse.json({
+//       message: { forms },
+//       statusCode: 200,
+//     });
+//   } catch (e: any) {
+//     console.error(e);
+//     return NextResponse.json({
+//       message: "Internal Server Error",
+//       statusCode: 500,
+//     });
+//   }
+// }
