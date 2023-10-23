@@ -1,6 +1,6 @@
 import dbConnect from "@/lib/prisma/dbconn";
 import { Forms, User } from "../models";
-import { NextApiRequest } from "next";
+import type { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
 export async function POST(request: NextApiRequest) {
