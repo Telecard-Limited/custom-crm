@@ -87,6 +87,7 @@ export default function Home() {
           </Button>
         </div>
         <Image
+          alt="default"
           src="/images/marketflows.png"
           width={50}
           height={50}
