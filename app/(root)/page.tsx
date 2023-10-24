@@ -89,10 +89,12 @@ export default function Home() {
         <Image
           alt="default"
           src="/images/marketflows.png"
-          width={50}
-          height={50}
+          width={300}
+          height={100}
           style={{
             marginRight: "40px",
+            width: "50%",
+            height: "50%",
           }}
         />
       </div>
