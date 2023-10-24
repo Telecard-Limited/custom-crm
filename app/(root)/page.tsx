@@ -66,7 +66,7 @@ export default function Home() {
           <h1 className="text-4xl font-extrabold text-white ">Accord CRM </h1>
         </div>
       </div>
-      <div className="flex flex-row items-center justify-between bg-gray-200 w-[100vw] h-screen">
+      <div className="flex flex-row items-center  bg-gray-200 w-[100vw] h-screen">
         <div className="flex flex-col">
           <h1 className="font-bold text-3d">
             Boost Sales with Our Cutting-Edge CRM Solution
