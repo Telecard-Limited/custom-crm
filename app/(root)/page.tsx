@@ -17,6 +17,7 @@ import { useFormik } from "formik";
 import loginValidation from "@/components/validationSchema/loginshema";
 import { EmailRounded } from "@mui/icons-material";
 import HttpsIcon from "@mui/icons-material/Https";
+import Image from "next/image";
 
 import { toast } from "react-hot-toast";
 export default function Home() {
@@ -85,7 +86,7 @@ export default function Home() {
             Get Started
           </Button>
         </div>
-        <img
+        <Image
           src="/images/marketflows.png"
           width={"50%"}
           height={50}
