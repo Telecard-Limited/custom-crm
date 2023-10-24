@@ -39,7 +39,7 @@
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^2.5.1",
     "lucide-react": "^0.274.0",
-    "mongoose": "^7.5.2",
+    "mongoose": "^6.11.1",
     "next": "^13.4.19",
     "next-auth": "^4.24.3",
     "next-themes": "^0.2.1",
