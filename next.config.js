@@ -7,6 +7,9 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  experiments: {
+    topLevelAwait: true,
+  },
 };
 
 module.exports = nextConfig;
