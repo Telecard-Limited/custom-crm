@@ -9,10 +9,6 @@ const Header = () => {
       <MenuItem label="Pricing" onClick={() => {}} />
       <MenuItem label="About" onClick={() => {}} />
       <MenuItem label="Sign In" onClick={() => router.push("/signin")} />
-      <MenuItem
-        label="Register"
-        onClick={() => router.push("/registeration")}
-      />
     </div>
   );
 };
