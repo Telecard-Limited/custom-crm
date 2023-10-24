@@ -88,6 +88,7 @@ export default function Home() {
         </div>
         <Image
           src="/images/marketflows.png"
+          //@ts-ignore
           width={"50%"}
           height={50}
           style={{
