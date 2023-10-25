@@ -88,7 +88,7 @@ export default function Home() {
         </div>
         <Image
           alt="default"
-          src="/images/marketflows.png"
+          src="/images/citation.svg"
           width={300}
           height={100}
           style={{
