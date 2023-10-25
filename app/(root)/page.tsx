@@ -63,7 +63,7 @@ export default function Home() {
     <>
       <div className="flex flex-col  items-center justify-center w-[100vw] h-[30vh]  bg-blue-950">
         <div className="mt-20">
-          <h1 className="text-4xl font-extrabold text-white ">Accord CRM </h1>
+          <h1 className="text-6xl font-extrabold text-white ">Accord </h1>
         </div>
       </div>
       <div className="flex flex-row items-center  bg-gray-200 w-[100vw] h-screen">
@@ -109,7 +109,7 @@ export default function Home() {
                 color="#2D3748 !important"
                 component="p"
               >
-                Welcome To Accord CRM
+                Welcome To Accord
               </Typography>
             </Box>
           </Container>
