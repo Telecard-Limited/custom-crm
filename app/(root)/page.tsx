@@ -102,7 +102,7 @@ export default function Home() {
       {expanded && (
         <div className="flex flex-col items-center justify-center w-[100vw] h-screen bg-gray-200">
           <Container maxWidth="md" component="main" sx={{}}>
-            <Box sx={{ mt: 5 }}>
+            <Box sx={{ mt: 1 }}>
               <Typography
                 variant="h4"
                 align="center"
