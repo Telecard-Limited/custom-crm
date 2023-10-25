@@ -1,9 +1,9 @@
 "use client";
 import Appbar from "./FormOptions";
-const FormHeader = () => {
+const FormHeader = (children: React.ReactNode) => {
   return (
     <>
-      <Appbar onMenuButtonClick={() => {}} />
+      <Appbar onMenuButtonClick={() => children} />
     </>
   );
 };

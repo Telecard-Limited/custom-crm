@@ -9,6 +9,7 @@ import {
   Button,
   Checkbox,
 } from "@mui/material";
+import Image from "next/image";
 const Boards = [
   {
     teamname: "Angular JamPack",
@@ -112,7 +113,10 @@ const DasboardCards = () => {
                 >
                   Welcome back, Abiodun❕
                 </Typography>
-                <img
+                <Image
+                  width={100}
+                  height={100}
+                  alt="defailt dummy Images"
                   src="/images/avatar.png"
                   style={{
                     width: "64px",
@@ -183,7 +187,10 @@ const DasboardCards = () => {
                 >
                   Total Board
                 </Typography>
-                <img
+                <Image
+                  width={100}
+                  height={100}
+                  alt="defailt dummy Images"
                   src="/images/Clipboard.png"
                   style={{
                     display: "flex",
@@ -258,7 +265,10 @@ const DasboardCards = () => {
                 >
                   Completed Ticket
                 </Typography>
-                <img
+                <Image
+                  width={100}
+                  height={100}
+                  alt="defailt dummy Images"
                   src="/images/CompletedTicketsIcons.png"
                   style={{
                     width: "48px",
@@ -280,7 +290,10 @@ const DasboardCards = () => {
                   }}
                 >
                   134
-                  <img
+                  <Image
+                    width={100}
+                    height={100}
+                    alt="defailt dummy Images"
                     src="/images/red-arrow.png"
                     style={{
                       width: "16px",
@@ -341,7 +354,10 @@ const DasboardCards = () => {
                 >
                   Teams
                 </Typography>
-                <img
+                <Image
+                  width={100}
+                  height={100}
+                  alt="defailt dummy Images"
                   src="/images/TeamsIcon.png"
                   style={{
                     width: "48px",
@@ -363,7 +379,10 @@ const DasboardCards = () => {
                   }}
                 >
                   22
-                  <img
+                  <Image
+                    width={100}
+                    height={100}
+                    alt="defailt dummy Images"
                     src="/images/green-arrow.png"
                     style={{
                       width: "16px",

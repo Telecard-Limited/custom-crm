@@ -2,10 +2,10 @@
 
 import Appbar from "@/components/Appbar";
 
-const ReportHeader = () => {
+const ReportHeader = (children: React.ReactNode) => {
   return (
     <>
-      <Appbar onMenuButtonClick={() => {}} />
+      <Appbar onMenuButtonClick={() => children} />
     </>
   );
 };
